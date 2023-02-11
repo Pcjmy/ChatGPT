@@ -1,0 +1,161 @@
+<html>
+  <head>
+    <style>
+      #game-board {
+        border: 1px solid black;
+        width: 500px;
+        height: 500px;
+        position: relative;
+      }
+      .snake-unit {
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        background-color: green;
+      }
+      .food-unit {
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="game-board"></div>
+    <script>
+      let snake = [];
+      let food = null;
+      let gameBoard = null;
+      let gameInterval = null;
+      let snakeSpeed = 100;
+      let snakeDirection = "right";
+
+      window.onload = function() {
+        gameBoard = document.getElementById("game-board");
+        startGame();
+      };
+
+      function startGame() {
+        // Initialize snake
+        snake = [];
+        let snakeStartLength = 5;
+        for (let i = snakeStartLength - 1; i >= 0; i--) {
+          snake.push({ x: i, y: 0 });
+        }
+
+        // Create food
+        createFood();
+
+        // Draw game board
+        drawBoard();
+
+        // Start game loop
+        gameInterval = setInterval(gameLoop, snakeSpeed);
+      }
+
+      function createFood() {
+        food = {
+          x: Math.floor(Math.random() * 50),
+          y: Math.floor(Math.random() * 50)
+        };
+      }
+
+      function drawBoard() {
+        // Clear game board
+        while (gameBoard.firstChild) {
+          gameBoard.removeChild(gameBoard.firstChild);
+        }
+
+        // Draw snake
+        for (let i = 0; i <snake.length; i++) {
+          let snakeUnit = document.createElement("div");
+          snakeUnit.className = "snake-unit";
+          snakeUnit.style.left = snake[i].x * 10 + "px";
+          snakeUnit.style.top = snake[i].y * 10 + "px";
+          gameBoard.appendChild(snakeUnit);
+        }
+
+        // Draw food
+        let foodUnit = document.createElement("div");
+        foodUnit.className = "food-unit";
+        foodUnit.style.left = food.x * 10 + "px";
+        foodUnit.style.top = food.y * 10 + "px";
+        gameBoard.appendChild(foodUnit);
+      }
+
+      function gameLoop() {
+        // Move snake
+        let nextPosition = {
+          x: snake[0].x,
+          y: snake[0].y
+        };
+        switch (snakeDirection) {
+          case "right":
+            nextPosition.x++;
+            break;
+          case "left":
+            nextPosition.x--;
+            break;
+          case "up":
+            nextPosition.y--;
+            break;
+          case "down":
+            nextPosition.y++;
+            break;
+        }
+
+        // Check if snake hits the wall
+        if (nextPosition.x < 0 || nextPosition.x > 49) {
+          gameOver();
+          return;
+        }
+        if (nextPosition.y < 0 || nextPosition.y > 49) {
+          gameOver();
+          return;
+        }
+
+        // Check if snake eats food
+        if (nextPosition.x === food.x && nextPosition.y === food.y) {
+          snake.unshift(nextPosition);
+          createFood();
+        } else {
+          snake.pop();
+          snake.unshift(nextPosition);
+        }
+
+        drawBoard();
+      }
+
+      function gameOver() {
+        clearInterval(gameInterval);
+        alert("Game over!");
+      }
+
+      document.onkeydown = function(event) {
+        switch (event.keyCode) {
+          case 37:
+            if (snakeDirection !== "right") {
+              snakeDirection = "left";
+            }
+            break;
+          case 38:
+            if (snakeDirection !== "down") {
+              snakeDirection = "up";
+            }
+            break;
+          case 39:
+            if (snakeDirection !== "left") {
+              snakeDirection = "right";
+            }
+            break;
+          case 40:
+            if (snakeDirection !== "up") {
+              snakeDirection = "down";
+            }
+            break;
+        }
+      };
+    </script>
+  </body>
+</html>
