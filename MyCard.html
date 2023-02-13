@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #card {
+      width: 400px;
+      height: 600px;
+      background-color: #f2f2f2;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+      margin: auto;
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+
+    #card-header {
+      background-color: #fff;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      padding: 30px 0;
+    }
+
+    #avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin: 0 auto;
+      display: block;
+    }
+
+    #avatar:hover {
+      transform: rotate(360deg);
+      transition: 1.5s;
+    }
+
+    #name {
+      font-size: 24px;
+      margin-top: 20px;
+    }
+
+    #title {
+      font-size: 18px;
+      color: #999;
+      margin-top: 5px;
+    }
+
+    #card-body {
+      padding: 40px;
+      background-color: #fff;
+    }
+
+    #card-body a {
+      text-decoration: none;
+      color: #0000EE;
+    }
+
+    #card-footer {
+      background-color: #fff;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      padding: 20px 0;
+    }
+
+    #social-links {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: inline-block;
+    }
+
+    #social-links li {
+      display: inline-block;
+      margin: 0 10px;
+    }
+
+    #social-links a {
+      color: #999;
+      font-size: 24px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="card">
+    <div id="card-header">
+      <img src="https://p3-passport.byteimg.com/img/user-avatar/ad38ad958249073a66700e818c27dacc~180x180.awebp" id="avatar">
+      <h1 id="name">Pcjmy</h1>
+    </div>
+    <div id="card-body">
+      <p><strong>Email:</strong> <a href="1716045191@qq.com">1716045191@qq.com</a></p>
+      <p><strong>Github:</strong> <a href="https://github.com/Pcjmy">https://github.com/Pcjmy</a></p>
+      <p><strong>Location:</strong> ZhengZhou, China</p>
+    </div>
+    <div id="card-footer">
+      <p>Connect with me on:</p>
+      <ul id="social-links">
+        <li><a href="https://img1.imgtp.com/2023/02/13/Iu67Q1dl.jpg"><i class="fab fa-linkedin">QQ</i></a></li>
+      </ul>
+    </div>
+  </div>
+  <script>
+    // Add event listener to toggle the visibility of the contact information when the header is clicked
+    document.querySelector("#card-header").addEventListener("click", function() {
+      document.querySelector("#card-body").classList.toggle("hidden");
+    });
+  </script>
+</body>
+</html>
