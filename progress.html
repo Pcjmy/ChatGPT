@@ -7,7 +7,7 @@
   <title>Document</title>
   <style>
     /* 使用CSS样式属性来修改进度条的外观 */
-    progress {
+    .progress {
       /* 进度条的宽度和高度 */
       width: 300px;
       height: 20px;
@@ -16,18 +16,53 @@
       border: none;
       /* 进度条的圆角 */
       border-radius: 10px;
+      /* 进度条的相对定位 */
+      position: relative;
+      /* 进度条的溢出隐藏 */
+      overflow: hidden;
     }
 
-    /* 使用伪元素来选择进度条的值部分 */
-    progress::-webkit-progress-value {
-      /* 进度条的值部分的颜色和圆角 */
+    /* 使用CSS样式属性来修改进度条的值部分的外观 */
+    .value {
+      /* 进度条的值部分的宽度和高度 */
+      width: 0;
+      height: 100%;
+      /* 进度条的值部分的背景色和圆角 */
       background-color: green;
       border-radius: 10px;
+      /* 进度条的值部分的绝对定位 */
+      position: absolute;
+      /* 进度条的值部分的左边距 */
+      left: 0;
+      /* 进度条的值部分的动画 */
+      animation: gradient 3s infinite;
+    }
+
+    /* 定义一个名为gradient的动画 */
+    @keyframes gradient {
+      /* 动画的开始状态，进度条的值部分的宽度和背景色 */
+      from {
+        width: 0;
+        background-color: green;
+      }
+      /* 动画的中间状态，进度条的值部分的宽度和背景色 */
+      50% {
+        width: 50%;
+        background-color: yellow;
+      }
+      /* 动画的结束状态，进度条的值部分的宽度和背景色 */
+      to {
+        width: 100%;
+        background-color: red;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- 使用progress元素来表示一个任务的完成进度 -->
-  <progress value="70" max="100"></progress>
+  <!-- 使用div元素来表示一个渐变的进度条 -->
+  <div class="progress">
+    <!-- 使用span元素来表示进度条的值部分 -->
+    <span class="value"></span>
+  </div>
 </body>
 </html>
