@@ -1,0 +1,68 @@
+<html>
+<head>
+  <style>
+    /* 定义加载动画的样式 */
+    #loader {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #222222;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* 定义加载动画的动画效果 */
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* 定义加载动画的图标 */
+    #loader img {
+      width: 100px;
+      height: 100px;
+      animation: spin 2s linear infinite;
+    }
+
+    /* 定义网页内容的样式 */
+    #content {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- 定义加载动画的元素 -->
+  <div id="loader">
+    <img src="favicon.ico" alt="Logo">
+  </div>
+  <!-- 定义网页内容的元素 -->
+  <div id="content">
+    <h1>Hello, world!</h1>
+    <p>This is a web page with a loading animation.</p>
+  </div>
+  <script>
+    // 定义一个函数，用来隐藏加载动画，显示网页内容
+    function showContent() {
+      // 获取加载动画和网页内容的元素
+      var loader = document.getElementById("loader");
+      var content = document.getElementById("content");
+      setTimeout(() => {
+        // 设置加载动画的样式为不可见
+        loader.style.display = "none";
+        // 设置网页内容的样式为可见
+        content.style.display = "block";
+      }, 3000)
+    }
+
+    // 在网页加载完成后，调用这个函数
+    window.onload = showContent;
+  </script>
+</body>
+</html>
