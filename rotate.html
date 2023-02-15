@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* 定义一个名为rotate的动画 */
+    @keyframes rotate {
+      /* 动画的开始状态，方块的位置和旋转角度 */
+      from {
+        transform: translate(0, 0) rotate(0deg);
+      }
+      /* 动画的结束状态，方块的位置和旋转角度 */
+      to {
+        transform: translate(200px, 200px) rotate(360deg);
+      }
+    }
+
+    /* 选择一个类名为box的元素，应用动画 */
+    .box {
+      /* 方块的宽高和背景色 */
+      width: 100px;
+      height: 100px;
+      background-color: blue;
+      /* 动画的名称，持续时间，重复次数和缓动函数 */
+      animation: rotate 3s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body>
+  <div class="box"></div>
+</body>
+</html>
