@@ -34,35 +34,56 @@
       position: absolute;
       /* 进度条的值部分的左边距 */
       left: 0;
-      /* 进度条的值部分的动画 */
-      animation: gradient 3s infinite;
     }
 
-    /* 定义一个名为gradient的动画 */
-    @keyframes gradient {
-      /* 动画的开始状态，进度条的值部分的宽度和背景色 */
-      from {
-        width: 0;
-        background-color: green;
-      }
-      /* 动画的中间状态，进度条的值部分的宽度和背景色 */
-      50% {
-        width: 50%;
-        background-color: yellow;
-      }
-      /* 动画的结束状态，进度条的值部分的宽度和背景色 */
-      to {
-        width: 100%;
-        background-color: red;
-      }
+    /* 使用CSS样式属性来修改进度条的百分比的外观 */
+    .percent {
+      /* 进度条的百分比的字体大小和颜色 */
+      font-size: 16px;
+      color: white;
+      /* 进度条的百分比的绝对定位 */
+      position: absolute;
+      /* 进度条的百分比的居中对齐 */
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
   </style>
 </head>
 <body>
-  <!-- 使用div元素来表示一个渐变的进度条 -->
+  <!-- 使用div元素来表示一个进度条 -->
   <div class="progress">
     <!-- 使用span元素来表示进度条的值部分 -->
     <span class="value"></span>
+    <!-- 使用span元素来表示进度条的百分比 -->
+    <span class="percent"></span>
   </div>
+  <!-- 使用script元素来引入JavaScript代码 -->
+  <script>
+    // 获取进度条的值部分和百分比的元素
+    var value = document.querySelector(".value");
+    var percent = document.querySelector(".percent");
+
+    // 设置一个初始的进度值和最大值
+    var progress = 0;
+    var max = 100;
+
+    // 定义一个函数来更新进度条的值部分和百分比
+    function updateProgress() {
+      // 如果进度值小于最大值，就增加进度值
+      if (progress < max) {
+        progress++;
+      }
+      // 计算进度条的值部分的宽度和百分比的文本
+      var width = (progress / max) * 100 + "%";
+      var text = progress + "%";
+      // 修改进度条的值部分和百分比的元素的样式和内容
+      value.style.width = width;
+      percent.textContent = text;
+    }
+
+    // 每隔100毫秒调用一次更新进度条的函数
+    setInterval(updateProgress, 100);
+  </script>
 </body>
 </html>
