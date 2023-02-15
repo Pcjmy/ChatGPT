@@ -28,7 +28,7 @@
       width: 0;
       height: 100%;
       /* 进度条的值部分的背景色和圆角 */
-      background-color: green;
+      background-color: rgb(245, 245, 8);
       border-radius: 10px;
       /* 进度条的值部分的绝对定位 */
       position: absolute;
@@ -74,6 +74,9 @@
       if (progress < max) {
         progress++;
       }
+      if (progress === max) {
+        progress = 0;
+      }
       // 计算进度条的值部分的宽度和百分比的文本
       var width = (progress / max) * 100 + "%";
       var text = progress + "%";
@@ -83,7 +86,7 @@
     }
 
     // 每隔100毫秒调用一次更新进度条的函数
-    setInterval(updateProgress, 100);
+    setInterval(updateProgress, 50);
   </script>
 </body>
 </html>
