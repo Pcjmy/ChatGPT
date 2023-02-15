@@ -1,0 +1,108 @@
+<!-- HTML代码 -->
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>WebGL Hello World</title>
+</head>
+<body>
+    <!-- 创建一个<canvas>元素 -->
+    <canvas id="canvas" width="300" height="300"></canvas>
+    <!-- 引入一个JavaScript文件 -->
+    <script>
+      // JavaScript代码
+      // 获取<canvas>元素
+      var canvas = document.getElementById("canvas");
+      // 获取<canvas>元素的webgl上下文
+      var gl = canvas.getContext("webgl");
+      // 如果浏览器不支持webgl，提示用户
+      if (!gl) {
+          alert("Your browser does not support WebGL");
+      }
+
+      // 顶点着色器代码
+      var vertexShaderSource = `
+      // 一个属性，用于接收缓冲区的数据
+      attribute vec4 position;
+      // 主函数
+      void main() {
+          // gl_Position是一个特殊的变量，顶点着色器负责设置它
+          gl_Position = position;
+      }
+      `;
+
+      // 片元着色器代码
+      var fragmentShaderSource = `
+      // 设置精度
+      precision mediump float;
+      // 主函数
+      void main() {
+          // gl_FragColor是一个特殊的变量，片元着色器负责设置它
+          gl_FragColor = vec4(1, 0, 0, 1); // 红色
+      }
+      `;
+
+      // 创建一个顶点着色器对象
+      var vertexShader = gl.createShader(gl.VERTEX_SHADER);
+      // 将顶点着色器代码传递给顶点着色器对象
+      gl.shaderSource(vertexShader, vertexShaderSource);
+      // 编译顶点着色器
+      gl.compileShader(vertexShader);
+      // 检查顶点着色器是否编译成功
+      if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
+          alert("Vertex shader failed to compile: " + gl.getShaderInfoLog(vertexShader));
+      }
+
+      // 创建一个片元着色器对象
+      var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+      // 将片元着色器代码传递给片元着色器对象
+      gl.shaderSource(fragmentShader, fragmentShaderSource);
+      // 编译片元着色器
+      gl.compileShader(fragmentShader);
+      // 检查片元着色器是否编译成功
+      if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
+          alert("Fragment shader failed to compile: " + gl.getShaderInfoLog(fragmentShader));
+      }
+
+      // 创建一个程序对象
+      var program = gl.createProgram();
+      // 将顶点着色器和片元着色器附加到程序对象
+      gl.attachShader(program, vertexShader);
+      gl.attachShader(program, fragmentShader);
+      // 链接程序对象
+      gl.linkProgram(program);
+      // 检查程序对象是否链接成功
+      if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+          alert("Program failed to link: " + gl.getProgramInfoLog(program));
+      }
+
+      // 创建一个缓冲区对象
+      var buffer = gl.createBuffer();
+      // 将缓冲区对象绑定到webgl上下文
+      gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+      // 定义一个三角形的顶点数据，每个顶点有两个分量（x和y），分量的范围是[-1, 1]
+      var vertices = [
+          0, 0.5, // 第一个顶点
+          -0.5, -0.5, // 第二个顶点
+          0.5, -0.5 // 第三个顶点
+      ];
+      // 将顶点数据传递给缓冲区对象
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+      // 获取position属性的位置
+      var positionLocation = gl.getAttribLocation(program, "position");
+      // 启用position属性
+      gl.enableVertexAttribArray(positionLocation);
+      // 告诉webgl如何从缓冲区对象中读取position属性的数据
+      gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+
+      // 设置webgl的视口，与<canvas>元素的大小一致
+      gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+      // 清空画布，使用黑色填充
+      gl.clearColor(0, 0, 0, 1);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      // 使用程序对象
+      gl.useProgram(program);
+      // 绘制三角形，使用三个顶点
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    </script>
+</body>
+</html>
