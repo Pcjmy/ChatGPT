@@ -3,7 +3,9 @@ var chat = document.getElementById("chat");
 var input = document.getElementById("input");
 
 // create a WebSocket object
-var ws = new WebSocket("ws://localhost:8080");
+var ws = new WebSocket("ws://localhost:3000");
+// websocket服务器
+// https://github.com/Pcjmy/JavaScript
 
 // handle WebSocket events
 ws.onopen = function() {
