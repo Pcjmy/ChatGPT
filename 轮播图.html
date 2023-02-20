@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>纯CSS实现轮播图</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      *{
+          margin: 0;
+          padding: 0;
+      }
+      body{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+      }
+      ul.slides{
+          position: relative;
+          width: 600px;
+          height: 280px;
+          list-style: none;
+          background-color: skyblue;
+          /* 将突出的第二和第三张图隐藏 */
+          overflow: hidden; 
+      }
+      li.slide{
+          width: inherit; 
+          height: inherit;
+          position: absolute;
+          top: 0;
+          left: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-family: Helvetica;
+          font-size: 120px;
+          color: rgb(196, 21, 21);
+          transition:  .5s transform ease-in-out;
+      }
+
+      /* 加入三个选择器，分别设置三张轮播图的背景颜色 */
+      /* :nth-of-type(n) 选择器匹配属于父元素的特定类型的第 N 个子元素的每个元素. */
+      .slide:nth-of-type(1){
+          background-color: #ccc;
+      }
+      .slide:nth-of-type(2){
+          background-color: khaki;
+          /* 第二张图要在第一张图的右边，所以可以设置为left：100% */
+          left:100% 
+          }
+      .slide:nth-of-type(3){
+          background-color: rgb(134, 93, 124);
+          left:200%
+      }
+      /* 属性选择器，用于选择带有指定值属性的元素 */
+      input[type="radio"]{
+          position: relative;
+          /* z-index 属性设置元素的堆叠顺序。拥有更高堆叠顺序的元素总是会处于堆叠顺序较低的元素的前面。,仅在定位元素上生效 */
+          /* 所有效果完成之后可以将z-index去掉，因为此时的display显示为none */
+          z-index: 100; 
+          display: none;
+      }
+      .controls-visible{
+          position: absolute;
+          width: 100%;
+          bottom: 12px;
+          text-align: center;
+      }
+      .controls-visible label{
+          display: inline-block;
+          width: 10px;
+          height: 10px;
+          background-color: white;
+          /* 变为圆形 */
+          border-radius: 50%;
+          margin: 0 3px;
+          border:2px solid #FFF
+      }
+      /* 判断第一个radio是否处于已选择的状态 ,如果是，则找到里面的第一个label*/
+      .slides input[type="radio"]:nth-of-type(1):checked ~ .controls-visible label:nth-of-type(1){
+          background-color: #333;
+      }
+          /* 判断第二个radio是否处于已选择的状态 ,如果是，则找到里面的第二个label*/
+          .slides input[type="radio"]:nth-of-type(2):checked ~ .controls-visible label:nth-of-type(2){
+          background-color: #333;
+      }
+          /* 判断第三个radio是否处于已选择的状态 ,如果是，则找到里面的第三个label*/
+          .slides input[type="radio"]:nth-of-type(3):checked ~ .controls-visible label:nth-of-type(3){
+          background-color: #333;
+      }
+
+      /* 设置轮播图的效果 */ 
+      /* 当选中第一个radio按钮之后，后面三张 .slide的样式 */
+      /* 因为我们已经将三张图片的样式横向排列了，所以只需要根据radio按钮，将三个slide向左移动特定的距离即可 */
+      /* 添加完成后，因为切换很生硬，所以回到slide选择器中加入动画的过渡 */
+      .slides input[type="radio"]:nth-of-type(1):checked ~ .slide{
+          transform: translate(0%);
+      }
+      .slides input[type="radio"]:nth-of-type(2):checked ~ .slide{
+          /* 向左移动一倍的宽度 */
+          transform: translate(-100%);
+      }
+      .slides input[type="radio"]:nth-of-type(3):checked ~ .slide{
+          transform: translate(-200%);
+      }
+    </style>
+</head>
+<body>
+   <ul class="slides">
+       <!-- 加入三个按钮，用于控制轮播图的切换 ,设定相同的name，这样就可以将它们归纳为同一组按钮-->
+       <!-- 第一个按钮加入checked，默认选中 -->
+       <!-- radio按钮要写在上面，因为可以通过radio:checked判断已选择的radio按钮，再通过通用兄弟选择器~找到它同一层之后的元素
+        而css只能找之后同一层的元素，不能找之前同一层的元素，所以radio要写再前面
+     -->
+       <input type="radio" name="control" id="control-1" checked>
+       <input type="radio" name="control" id="control-2">
+       <input type="radio" name="control" id="control-3">
+        
+       <li class="slide">1</li>
+       <li class="slide">2</li>
+       <li class="slide">3</li>
+
+       <!-- label来控制按钮，目的是为了自定义样式 -->
+       <div class="controls-visible">
+        <label for="control-1"></label>
+        <label for="control-2"></label>
+        <label for="control-3"></label>
+    </div> 
+   </ul>
+</body>
+
+</html>
