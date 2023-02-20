@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .card {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      perspective: 1000px;
+    }
+
+    .front, .back {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+    }
+
+    .front {
+      transform: rotateY(0deg);
+      background-color: blue;
+      z-index: 2;
+    }
+
+    .back {
+      transform: rotateY(180deg);
+      background-color: red;
+      z-index: 1;
+    }
+
+    .card:hover .front {
+      animation: flip 1s;
+    }
+
+    .card:hover .back {
+      animation: flip 1s;
+    }
+
+    @keyframes flip {
+      from {
+        transform: rotateY(0deg);
+      }
+      to {
+        transform: rotateY(180deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="front">
+      <!-- 此处是正面内容 -->
+    </div>
+    <div class="back">
+      <!-- 此处是反面内容 -->
+    </div>
+  </div>  
+</body>
+</html>
