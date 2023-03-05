@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- 通过监听 scroll 事件实现图片懒加载 -->
+  <img src="placeholder.jpg" data-src="real.jpg" alt="图片">
+  <script>
+    // JavaScript
+    // 获取所有图片元素
+    var imgs = document.getElementsByTagName("img");
+    // 获取可视区域高度
+    var clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    // 定义一个函数，判断图片是否进入可视区域
+    function isInSight(el) {
+      // 获取图片距离页面顶部的距离
+      var bound = el.getBoundingClientRect();
+      // 如果距离小于可视区域高度，说明在可视区域内
+      return bound.top <= clientHeight;
+    }
+    // 定义一个函数，加载图片
+    function loadImg(el) {
+      // 如果已经加载过，就不再重复加载
+      if (el.getAttribute("data-isLoaded")) {
+        return;
+      }
+      // 如果在可视区域内，就将自定义属性中的真实地址赋值给 src 属性，并设置 data-isLoaded 属性为 true
+      if (isInSight(el)) {
+        el.src = el.getAttribute("data-src");
+        el.setAttribute("data-isLoaded", true);
+      }
+    }
+    // 定义一个函数，遍历所有图片并加载
+    function checkImgs() {
+      for (var i = 0; i < imgs.length; i++) {
+        loadImg(imgs[i]);
+      }
+    }
+    // 页面加载完成后，执行一次 checkImgs 函数
+    window.onload = checkImgs;
+    // 监听 scroll 事件，每次滚动时执行 checkImgs 函数
+    window.onscroll = checkImgs;
+  </script>
+</body>
+</html>

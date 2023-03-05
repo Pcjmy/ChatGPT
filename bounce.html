@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* 定义一个名为bounce的动画 */
+    @keyframes bounce {
+      /* 在0%时元素位于顶部 */
+      0% {
+        top: 0;
+        height: 100px;
+        background-color: red;
+      }
+      /* 在50%时元素位于底部，并变高和变色 */
+      50% {
+        top: calc(100vh - 200px);
+        height: 200px;
+        background-color: green;
+      }
+      /* 在100%时元素回到顶部，并恢复原样 */
+      100% {
+        top: 0;
+        height: 100px;
+        background-color: red;
+      }
+    }
+    /* 设置div元素为绝对定位，并应用bounce动画 */
+    div {
+      width: 100px;
+      position: absolute;
+      /* 动画名称为bounce，时长为2秒，无限次重复 */
+      animation-name: bounce; 
+      animation-duration: 2s; 
+      animation-iteration-count: infinite; 
+    }
+  </style>
+</head>
+<body>
+  <div></div>
+</body>
+</html>

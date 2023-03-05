@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- 使用 Intersection Observer API实现图片懒加载 -->
+  <img src="placeholder.jpg" data-src="real.jpg" alt="图片">
+  <script>
+    // JavaScript
+    // 获取所有图片元素
+    var imgs = document.getElementsByTagName("img");
+    // 创建一个观察者对象，并传入一个回调函数和一些选项参数（这里只设置了阈值为0）
+    var observer = new IntersectionObserver(function(entries) {
+        // 遍历每个被观察的目标元素（这里是每个 img 标签）
+        entries.forEach(function(entry) {
+            // 如果目标元素与视口交叉（即进入可视区域），就将自定义属性中的真实地址赋值给 src 属性，并取消观察该元素（避免重复加载）
+            if (entry.isIntersecting) {
+                entry.target.src = entry.target.getAttribute("data-src");
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {threshold: [0]});
+    // 遍历所有图片元素，并将它们添加到观察者对象中进行观察
+    for (var i = 0; i < imgs.length; i++) {
+        observer.observe(imgs[i]);
+    }
+  </script>
+</body>
+</html>
