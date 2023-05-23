@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .drag-element {
+      width: 100px;
+      height: 100px;
+      background-color: #f1f1f1;
+      border: 1px solid #ccc;
+      margin: 5px;
+      padding: 10px;
+      cursor: move;
+    }
+    .drag-over {
+      border: 2px dashed #555;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div class="drag-element" draggable="true" ondragstart="dragStart(event)" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="drop(event)">Element 1</div>
+    <div class="drag-element" draggable="true" ondragstart="dragStart(event)" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="drop(event)">Element 2</div>
+    <div class="drag-element" draggable="true" ondragstart="dragStart(event)" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="drop(event)">Element 3</div>
+  </div>
+
+  <script>
+    let dragElement;
+
+    function dragStart(event) {
+      dragElement = event.target;
+      event.dataTransfer.setData('text/plain', ''); // 设置拖拽数据
+    }
+
+    function dragOver(event) {
+      event.preventDefault();
+      event.target.classList.add('drag-over');
+    }
+
+    function dragLeave(event) {
+      event.target.classList.remove('drag-over');
+    }
+
+    function drop(event) {
+      event.preventDefault();
+      event.target.classList.remove('drag-over');
+      const container = document.getElementById('container');
+      const dropIndex = Array.from(container.children).indexOf(event.target);
+      container.insertBefore(dragElement, container.children[dropIndex]);
+    }
+  </script>
+</body>
+</html>
